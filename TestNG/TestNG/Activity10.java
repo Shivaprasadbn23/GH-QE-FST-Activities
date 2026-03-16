@@ -34,7 +34,7 @@ public class Activity10 {
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        driver.get("https://training-support.net/webelements/simple-form");
+        driver.get("src/test/java/TestNG/sample.xlsx");
     }
 
     public static List<List<String>> readExcel(String filePath) {
