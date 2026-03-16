@@ -34,7 +34,7 @@ public class Activity10 {
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        driver.get("src/test/java/TestNG/sample.xlsx");
+        driver.get("https://training-support.net/webelements/simple-form");
     }
 
     public static List<List<String>> readExcel(String filePath) {
@@ -70,7 +70,7 @@ public class Activity10 {
     @DataProvider(name = "Events")
     public static Object[][] signUpInfo() {
 
-        String filePath = "src/test/resources/sample.xlsx";
+        String filePath = "src/test/java/TestNG/sample.xlsx";
         List<List<String>> data = readExcel(filePath);
 
         Object[][] testData = new Object[data.size() - 1][1];
@@ -94,10 +94,16 @@ public class Activity10 {
         driver.findElement(By.name("event-date")).sendKeys(rows.get(2));
 
         driver.findElement(By.id("additional-details")).sendKeys(rows.get(3));
-
         driver.findElement(By.xpath("//button[text()='Submit']")).click();
 
-        String message = driver.findElement(By.id("action-confirmation")).getText();
+// Wait for confirmation message
+        WebElement confirmation = wait.until(
+                driver -> driver.findElement(By.id("action-confirmation"))
+        );
+
+        String message = confirmation.getText();
+
+         message = driver.findElement(By.id("action-confirmation")).getText();
 
         assertEquals(message, "Your event has been scheduled!");
 
